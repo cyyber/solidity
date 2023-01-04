@@ -81,7 +81,7 @@ private:
 		RevertStrings revertStrings = RevertStrings::Default;
 		OptimiserSettings optimiserSettings = OptimiserSettings::minimal();
 		std::optional<langutil::DebugInfoSelection> debugInfoSelection;
-		std::map<std::string, util::h160> libraries;
+		std::map<std::string, util::h256> libraries;
 		bool metadataLiteralSources = false;
 		CompilerStack::MetadataHash metadataHash = CompilerStack::MetadataHash::IPFS;
 		Json::Value outputSelection;

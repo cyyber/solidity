@@ -2311,9 +2311,9 @@ void ExpressionCompiler::appendCompareOperatorCode(Token _operator, Type const& 
 			solUnimplementedAssert(functionType->sizeOnStack() == 2, "");
 			m_context << Instruction::SWAP3;
 
-			m_context << ((u256(1) << 160) - 1) << Instruction::AND;
+			m_context << ((u256(1) << 256) - 1) << Instruction::AND;
 			m_context << Instruction::SWAP1;
-			m_context << ((u256(1) << 160) - 1) << Instruction::AND;
+			m_context << ((u256(1) << 256) - 1) << Instruction::AND;
 			m_context << Instruction::EQ;
 			m_context << Instruction::SWAP2;
 			m_context << ((u256(1) << 32) - 1) << Instruction::AND;
@@ -2793,8 +2793,8 @@ void ExpressionCompiler::appendExternalFunctionCall(
 	{
 		// fix: built-in contract returns right-aligned data
 		utils().fetchFreeMemoryPointer();
-		utils().loadFromMemoryDynamic(IntegerType(160), false, true, false);
-		utils().convertType(IntegerType(160), FixedBytesType(20));
+		utils().loadFromMemoryDynamic(IntegerType(256), false, true, false);
+		utils().convertType(IntegerType(256), FixedBytesType(32));
 	}
 	else if (funKind == FunctionType::Kind::ECRecover)
 	{

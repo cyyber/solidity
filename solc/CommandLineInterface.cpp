@@ -922,8 +922,8 @@ void CommandLineInterface::link()
 	solAssert(m_options.input.mode == InputMode::Linker, "");
 
 	// Map from how the libraries will be named inside the bytecode to their addresses.
-	map<string, h160> librariesReplacements;
-	int const placeholderSize = 40; // 20 bytes or 40 hex characters
+	map<string, h256> librariesReplacements;
+	int const placeholderSize = 64; // 20 bytes or 40 hex characters
 	for (auto const& library: m_options.linker.libraries)
 	{
 		string const& name = library.first;

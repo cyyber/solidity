@@ -413,7 +413,7 @@ void CommandLineParser::parseLibraryOption(string const& _input)
 					"Note that the address must be prefixed with \"0x\"."
 				);
 
-			if (addrString.length() != 40)
+			if (addrString.length() != 64)
 				solThrow(
 					CommandLineValidationError,
 					"Invalid length for address for library \"" + libName + "\": " +
@@ -426,8 +426,8 @@ void CommandLineParser::parseLibraryOption(string const& _input)
 					"The correct checksum is " + util::getChecksummedAddress(addrString)
 				);
 			bytes binAddr = util::fromHex(addrString);
-			util::h160 address(binAddr, util::h160::AlignRight);
-			if (binAddr.size() > 20 || address == util::h160())
+			util::h256 address(binAddr, util::h256::AlignRight);
+			if (binAddr.size() > 32 || address == util::h256())
 				solThrow(
 					CommandLineValidationError,
 					"Invalid address for library \"" + libName + "\": " + addrString
