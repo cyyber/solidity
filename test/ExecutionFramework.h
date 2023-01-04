@@ -65,7 +65,7 @@ public:
 		u256 const& _value = 0,
 		std::string const& _contractName = "",
 		bytes const& _arguments = {},
-		std::map<std::string, util::h160> const& _libraryAddresses = {},
+		std::map<std::string, util::h256> const& _libraryAddresses = {},
 		std::optional<std::string> const& _sourceName = std::nullopt
 	) = 0;
 
@@ -74,7 +74,7 @@ public:
 		u256 const& _value = 0,
 		std::string const& _contractName = "",
 		bytes const& _arguments = {},
-		std::map<std::string, util::h160> const& _libraryAddresses = {}
+		std::map<std::string, util::h256> const& _libraryAddresses = {}
 	)
 	{
 		compileAndRunWithoutCheck(
@@ -180,7 +180,7 @@ public:
 		return encode(u256((value.numerator() << fractionalBits) / value.denominator()));
 	}
 	static bytes encode(util::h256 const& _value) { return _value.asBytes(); }
-	static bytes encode(util::h160 const& _value) { return encode(util::h256(_value, util::h256::AlignRight)); }
+	// static bytes encode(util::h256 const& _value) { return encode(util::h256(_value, util::h256::AlignRight)); }
 	static bytes encode(bytes const& _value, bool _padLeft = true)
 	{
 		bytes padding = bytes((32 - _value.size() % 32) % 32, 0);
@@ -246,7 +246,7 @@ public:
 		return result;
 	}
 
-	util::h160 setAccount(size_t _accountNumber)
+	util::h256 setAccount(size_t _accountNumber)
 	{
 		m_sender = account(_accountNumber);
 		return m_sender;
@@ -255,7 +255,7 @@ public:
 	size_t numLogs() const;
 	size_t numLogTopics(size_t _logIdx) const;
 	util::h256 logTopic(size_t _logIdx, size_t _topicIdx) const;
-	util::h160 logAddress(size_t _logIdx) const;
+	util::h256 logAddress(size_t _logIdx) const;
 	bytes logData(size_t _logIdx) const;
 
 private:
@@ -281,16 +281,16 @@ protected:
 	void reset();
 
 	void sendMessage(bytes const& _data, bool _isCreation, u256 const& _value = 0);
-	void sendEther(util::h160 const& _to, u256 const& _value);
+	void sendEther(util::h256 const& _to, u256 const& _value);
 	size_t currentTimestamp();
 	size_t blockTimestamp(u256 _number);
 
 	/// @returns the (potentially newly created) _ith address.
-	util::h160 account(size_t _i);
+	util::h256 account(size_t _i);
 
-	u256 balanceAt(util::h160 const& _addr) const;
-	bool storageEmpty(util::h160 const& _addr) const;
-	bool addressHasCode(util::h160 const& _addr) const;
+	u256 balanceAt(util::h256 const& _addr) const;
+	bool storageEmpty(util::h256 const& _addr) const;
+	bool addressHasCode(util::h256 const& _addr) const;
 
 	std::vector<frontend::test::LogRecord> recordedLogs() const;
 
@@ -304,8 +304,8 @@ protected:
 	std::vector<boost::filesystem::path> m_vmPaths;
 
 	bool m_transactionSuccessful = true;
-	util::h160 m_sender = account(0);
-	util::h160 m_contractAddress;
+	util::h256 m_sender = account(0);
+	util::h256 m_contractAddress;
 	bytes m_output;
 	u256 m_gasUsed;
 };

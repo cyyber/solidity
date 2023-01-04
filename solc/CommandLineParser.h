@@ -196,7 +196,7 @@ struct CommandLineOptions
 
 	struct
 	{
-		std::map<std::string, util::h160> libraries; // library name -> address
+		std::map<std::string, util::h256> libraries; // library name -> address
 	} linker;
 
 	struct

@@ -144,7 +144,7 @@ public:
 
 	/// Sets library addresses. Addresses are cleared iff @a _libraries is missing.
 	/// Must be set before parsing.
-	void setLibraries(std::map<std::string, util::h160> const& _libraries = {});
+	void setLibraries(std::map<std::string, util::h256> const& _libraries = {});
 
 	/// Changes the optimiser settings.
 	/// Must be set before parsing.
@@ -493,7 +493,7 @@ private:
 	bool m_generateEvmBytecode = true;
 	bool m_generateIR = false;
 	bool m_generateEwasm = false;
-	std::map<std::string, util::h160> m_libraries;
+	std::map<std::string, util::h256> m_libraries;
 	ImportRemapper m_importRemapper;
 	std::map<std::string const, Source> m_sources;
 	// if imported, store AST-JSONS for each filename

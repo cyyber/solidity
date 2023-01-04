@@ -142,9 +142,9 @@ map<string, Builtin> SemanticTest::makeBuiltins()
 			[this](FunctionCall const& _call) -> optional<bytes>
 			{
 				soltestAssert(_call.arguments.parameters.size() <= 1, "Account address expected.");
-				h160 address;
+				h256 address;
 				if (_call.arguments.parameters.size() == 1)
-					address = h160(_call.arguments.parameters.at(0).rawString);
+					address = h256(_call.arguments.parameters.at(0).rawString);
 				else
 					address = m_contractAddress;
 				return toBigEndian(balanceAt(address));

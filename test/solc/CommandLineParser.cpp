@@ -181,8 +181,8 @@ BOOST_AUTO_TEST_CASE(cli_mode_options)
 		expectedOptions.output.debugInfoSelection = DebugInfoSelection::fromString("location");
 		expectedOptions.formatting.json = JsonFormat{JsonFormat::Pretty, 7};
 		expectedOptions.linker.libraries = {
-			{"dir1/file1.sol:L", h160("1234567890123456789012345678901234567890")},
-			{"dir2/file2.sol:L", h160("1111122222333334444455555666667777788888")},
+			{"dir1/file1.sol:L", h256("1234567890123456789012345678901234567890")},
+			{"dir2/file2.sol:L", h256("1111122222333334444455555666667777788888")},
 		};
 		expectedOptions.formatting.coloredOutput = false;
 		expectedOptions.formatting.withErrorIds = true;
@@ -317,8 +317,8 @@ BOOST_AUTO_TEST_CASE(assembly_mode_options)
 		expectedOptions.assembly.targetMachine = expectedMachine;
 		expectedOptions.assembly.inputLanguage = expectedLanguage;
 		expectedOptions.linker.libraries = {
-			{"dir1/file1.sol:L", h160("1234567890123456789012345678901234567890")},
-			{"dir2/file2.sol:L", h160("1111122222333334444455555666667777788888")},
+			{"dir1/file1.sol:L", h256("1234567890123456789012345678901234567890")},
+			{"dir2/file2.sol:L", h256("1111122222333334444455555666667777788888")},
 		};
 		expectedOptions.formatting.coloredOutput = false;
 		expectedOptions.formatting.withErrorIds = true;
