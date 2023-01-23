@@ -2371,6 +2371,9 @@ public:
 	/// @returns true if this is a number with a hex prefix.
 	bool isHexNumber() const;
 
+	/// @returns true if this is a number with a Q prefix.
+	bool isHexQNumber() const;
+
 	/// @returns true if this looks like a checksummed address.
 	bool looksLikeAddress() const;
 	/// @returns true if it passes the address checksum test.

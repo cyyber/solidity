@@ -183,7 +183,15 @@ tuple<Token, unsigned int, unsigned int> fromIdentifierOrKeyword(string const& _
 		return ret;
 	};
 
-	auto positionM = find_if(_literal.begin(), _literal.end(), util::isDigit);
+	/* Code to scan Q address */
+	auto positionM = std::next(_literal.begin());
+	if (*_literal.begin() == 'Q' && distance(_literal.begin(), positionM) == 1) {
+		if(distance(positionM, _literal.end()) == 64 && std::all_of(positionM, _literal.end(), ::isxdigit)) {
+			return make_tuple(Token::Number, 0, 0);
+		}
+	}
+
+	positionM = find_if(_literal.begin(), _literal.end(), util::isDigit);
 	if (positionM != _literal.end())
 	{
 		string baseType(_literal.begin(), positionM);

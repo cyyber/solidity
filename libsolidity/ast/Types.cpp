@@ -481,7 +481,11 @@ string AddressType::canonicalName() const
 u256 AddressType::literalValue(Literal const* _literal) const
 {
 	solAssert(_literal, "");
-	solAssert(_literal->value().substr(0, 2) == "0x", "");
+	solAssert(_literal->value().substr(0, 1) == "Q", "");
+
+	std::string str;
+	str.append("0x");
+	str.append(_literal->valueWithoutUnderscores().substr(1));
 	return u256(_literal->valueWithoutUnderscores());
 }
 

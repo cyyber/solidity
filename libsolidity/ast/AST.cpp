@@ -960,31 +960,38 @@ bool Literal::isHexNumber() const
 	return boost::starts_with(value(), "0x");
 }
 
+bool Literal::isHexQNumber() const
+{
+	if (token() != Token::Number)
+		return false;
+	return boost::starts_with(value(), "Q");
+}
+
 bool Literal::looksLikeAddress() const
 {
 	if (subDenomination() != SubDenomination::None)
 		return false;
 
-	if (!isHexNumber())
+	if (!isHexQNumber())
 		return false;
 
-	return abs(int(valueWithoutUnderscores().length()) - 66) <= 1;
+	return abs(int(valueWithoutUnderscores().length()) - 65) == 0;
 }
 
 bool Literal::passesAddressChecksum() const
 {
-	solAssert(isHexNumber(), "Expected hex number");
+	solAssert(isHexQNumber(), "Expected hex number");
 	return util::passesAddressChecksum(valueWithoutUnderscores(), true);
 }
 
 string Literal::getChecksummedAddress() const
 {
-	solAssert(isHexNumber(), "Expected hex number");
+	solAssert(isHexQNumber(), "Expected hex number");
 	/// Pad literal to be a proper hex address.
-	string address = valueWithoutUnderscores().substr(2);
-	if (address.length() > 64)
+	string address = valueWithoutUnderscores().substr(1);
+	if (address.length() != 64)
 		return string();
-	address.insert(address.begin(), 64 - address.size(), '0');
+
 	return util::getChecksummedAddress(address);
 }
 
